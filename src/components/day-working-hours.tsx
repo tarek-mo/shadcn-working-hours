@@ -100,7 +100,7 @@ const DayWorkingHours = ({
                           : getNextHalfHour(day.workingHours[index - 1].end),
                         getPastHalfHour(workingHour.end)
                       ).map((time, index) => (
-                        <SelectItem key={`${index} ${name}`} value={time}>
+                        <SelectItem key={`${index} ${day.name}`} value={time}>
                           {time}
                         </SelectItem>
                       ))}
@@ -129,7 +129,7 @@ const DayWorkingHours = ({
                           ? "23:30"
                           : getPastHalfHour(day.workingHours[index + 1].start)
                       ).map((time, index) => (
-                        <SelectItem key={`${index} ${name}`} value={time}>
+                        <SelectItem key={`${index} ${day.name}`} value={time}>
                           {time}
                         </SelectItem>
                       ))}
