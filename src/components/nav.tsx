@@ -17,7 +17,10 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button size={"icon"} asChild>
-            <a href="https://github.com" target="_blank">
+            <a
+              href="https://github.com/tarek-mo/shadcn-working-hours/"
+              target="_blank"
+            >
               <SiGithub className="w-4 h-4" />
             </a>
           </Button>
