@@ -10,6 +10,11 @@ View [live demo](https://shadcn-working-hours.vercel.app/)
 
 [Shadcn working hours.webm](https://github.com/user-attachments/assets/d2c1816b-7a29-482e-b069-549f2c0b549f)
 
+## Features
+- Uses [Shadcn](https://ui.shadcn.com/) components 💠
+- Mobile responsive 📱
+- Supports light/dark mode 🌙
+
 ## Usage
 
 1. Install necessary shadcn components first (`select`, `button`, `scroll-area`):
