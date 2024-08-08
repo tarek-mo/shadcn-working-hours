@@ -460,3 +460,12 @@ export default function Home() {
   );
 }
 ```
+
+7. Do something with the submitted working hours (inside `week-working-hours.tsx`)
+
+```tsx
+const handleSubmit = () => {
+    console.log("weekWorkingHours", weekWorkingHours);
+    // Do something here
+  };
+```
