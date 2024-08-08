@@ -12,7 +12,7 @@ const Navbar = () => {
           className="scroll-m-20 text-2xl font-semibold tracking-tight"
           href={"/"}
         >
-          Shadcn week working hours
+          Shadcn working hours
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggle />
