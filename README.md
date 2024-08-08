@@ -11,6 +11,7 @@ View [live demo](https://shadcn-working-hours.vercel.app/)
 [Shadcn working hours.webm](https://github.com/user-attachments/assets/d2c1816b-7a29-482e-b069-549f2c0b549f)
 
 ## Features
+
 - Uses [Shadcn](https://ui.shadcn.com/) components 💠
 - Mobile responsive 📱
 - Supports light/dark mode 🌙
@@ -415,6 +416,10 @@ const WeekWorkingHours = () => {
       return day;
     });
     setWeekWorkingHours(updatedWeekWorkingHours);
+  };
+  const handleSubmit = () => {
+    console.log("weekWorkingHours", weekWorkingHours);
+    // Do something here
   };
   return (
     <>
