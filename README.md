@@ -241,9 +241,6 @@ const DayWorkingHours = ({
                       <SelectValue placeholder="Time" />
                     </SelectTrigger>
                     <SelectContent>
-                      {/* <SelectItem value={workingHour.end}>
-                      {workingHour.end}
-                    </SelectItem> */}
                       {getAvailableTimes(
                         getNextHalfHour(workingHour.start),
                         index === day.workingHours.length - 1
