@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getNextHalfHour } from "@/lib/utils";
 import DayWorkingHours from "./day-working-hours";
+import { Button } from "./ui/button";
 
 const WeekWorkingHours = () => {
   const initialWeekWorkingHours = [
@@ -75,10 +76,6 @@ const WeekWorkingHours = () => {
     setWeekWorkingHours(updatedWeekWorkingHours);
   };
 
-  useEffect(() => {
-    console.log(weekWorkingHours[0].workingHours);
-  }, [weekWorkingHours]);
-
   const addWorkingHours = (dayName: string) => {
     const updatedWeekWorkingHours = weekWorkingHours.map((day) => {
       if (day.name !== dayName) return day;
@@ -86,7 +83,6 @@ const WeekWorkingHours = () => {
         day.workingHours.length > 0
           ? getNextHalfHour(day.workingHours[day.workingHours.length - 1].end)
           : "08:00";
-      console.log("next half hour", nexHalfHour);
 
       day.workingHours.push({
         id: uuidv4(),
@@ -132,20 +128,29 @@ const WeekWorkingHours = () => {
     });
     setWeekWorkingHours(updatedWeekWorkingHours);
   };
+
+  const handleSubmit = () => {
+    console.log("weekWorkingHours", weekWorkingHours);
+    // Do something here
+  };
   return (
-    <div className="flex flex-col gap-4">
-      {weekWorkingHours.map((day) => (
-        <DayWorkingHours
-          key={day.name}
-          day={day}
-          weekWorkingHours={weekWorkingHours}
-          onDeleteWorkingHours={deleteWorkingHours}
-          onAddWorkingHours={addWorkingHours}
-          onUpdateOpeningHour={updateOpeningHour}
-          onUpdateClosingHour={updateClosingHour}
-        />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col gap-4">
+        {weekWorkingHours.map((day) => (
+          <DayWorkingHours
+            key={day.name}
+            day={day}
+            onDeleteWorkingHours={deleteWorkingHours}
+            onAddWorkingHours={addWorkingHours}
+            onUpdateOpeningHour={updateOpeningHour}
+            onUpdateClosingHour={updateClosingHour}
+          />
+        ))}
+      </div>
+      <Button className="block ms-auto mt-4" size={"lg"} onClick={handleSubmit}>
+        Save
+      </Button>
+    </>
   );
 };
 

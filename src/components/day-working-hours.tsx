@@ -26,14 +26,6 @@ type DayWorkingHoursProps = {
       end: string;
     }[];
   };
-  weekWorkingHours: {
-    name: string;
-    workingHours: {
-      id: string;
-      start: string;
-      end: string;
-    }[];
-  }[];
   onDeleteWorkingHours: (id: string, dayName: string) => void;
   onAddWorkingHours: (dayName: string) => void;
   onUpdateOpeningHour: (
@@ -53,10 +45,7 @@ const DayWorkingHours = ({
   onAddWorkingHours,
   onUpdateOpeningHour,
   onUpdateClosingHour,
-  weekWorkingHours,
 }: DayWorkingHoursProps) => {
-  console.log(weekWorkingHours);
-
   return (
     <div className="grid gap-3 grid-cols-12">
       <div className="flex items-center justify-between col-span-12 md:col-span-3 lg:col-span-2 flex-wrap gap-1">
@@ -110,8 +99,6 @@ const DayWorkingHours = ({
                   <ChevronRight size={50} />
                   <Select
                     onValueChange={(time) => {
-                      console.log("new time", time);
-
                       onUpdateClosingHour(workingHour.id, day.name, time);
                     }}
                     value={workingHour.end}

@@ -1,36 +1,43 @@
 # Shadcn working hours
 
 ## Overview
+
 [Shadcn](https://ui.shadcn.com/) week working hours component
 
 ## Demo
+
 View [live demo](https://shadcn-working-hours.vercel.app/)
 
 [Shadcn working hours.webm](https://github.com/user-attachments/assets/d2c1816b-7a29-482e-b069-549f2c0b549f)
 
 ## Usage
 
-1) Install necessary shadcn components first (`select`, `button`, `scroll-area`):
+1. Install necessary shadcn components first (`select`, `button`, `scroll-area`):
+
 ```
 npx shadcn-ui@latest add select
 ```
+
 ```
 npx shadcn-ui@latest add button
 ```
+
 ```
 npx shadcn-ui@latest add scroll-area
 ```
 
-2) Install `uuid`
+2. Install `uuid`
 
 ```
 npm i uuid
 ```
+
 ```
 npm i --save @types/uuid
 ```
 
-3) Create `/lib/utils.ts` file and add these functions:
+3. Create `/lib/utils.ts` file and add these functions:
+
 ```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -114,10 +121,9 @@ export function getAvailableTimes(
 
   return result;
 }
-
 ```
 
-4) Create `day-working-hours.tsx` file inside `/src/components` folder
+4. Create `day-working-hours.tsx` file inside `/src/components` folder
 
 ```tsx
 "use client";
@@ -148,14 +154,6 @@ type DayWorkingHoursProps = {
       end: string;
     }[];
   };
-  weekWorkingHours: {
-    name: string;
-    workingHours: {
-      id: string;
-      start: string;
-      end: string;
-    }[];
-  }[];
   onDeleteWorkingHours: (id: string, dayName: string) => void;
   onAddWorkingHours: (dayName: string) => void;
   onUpdateOpeningHour: (
@@ -175,10 +173,7 @@ const DayWorkingHours = ({
   onAddWorkingHours,
   onUpdateOpeningHour,
   onUpdateClosingHour,
-  weekWorkingHours,
 }: DayWorkingHoursProps) => {
-  console.log(weekWorkingHours);
-
   return (
     <div className="grid gap-3 grid-cols-12">
       <div className="flex items-center justify-between col-span-12 md:col-span-3 lg:col-span-2 flex-wrap gap-1">
@@ -232,8 +227,6 @@ const DayWorkingHours = ({
                   <ChevronRight size={50} />
                   <Select
                     onValueChange={(time) => {
-                      console.log("new time", time);
-
                       onUpdateClosingHour(workingHour.id, day.name, time);
                     }}
                     value={workingHour.end}
@@ -284,10 +277,9 @@ const DayWorkingHours = ({
 };
 
 export default DayWorkingHours;
-
 ```
 
-5) Create `week-working-hours.tsx` file inside `/src/components` folder
+5. Create `week-working-hours.tsx` file inside `/src/components` folder
 
 ```tsx
 "use client";
@@ -295,6 +287,7 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getNextHalfHour } from "@/lib/utils";
 import DayWorkingHours from "./day-working-hours";
+import { Button } from "./ui/button";
 
 const WeekWorkingHours = () => {
   const initialWeekWorkingHours = [
@@ -367,10 +360,6 @@ const WeekWorkingHours = () => {
     setWeekWorkingHours(updatedWeekWorkingHours);
   };
 
-  useEffect(() => {
-    console.log(weekWorkingHours[0].workingHours);
-  }, [weekWorkingHours]);
-
   const addWorkingHours = (dayName: string) => {
     const updatedWeekWorkingHours = weekWorkingHours.map((day) => {
       if (day.name !== dayName) return day;
@@ -378,8 +367,6 @@ const WeekWorkingHours = () => {
         day.workingHours.length > 0
           ? getNextHalfHour(day.workingHours[day.workingHours.length - 1].end)
           : "08:00";
-      console.log("next half hour", nexHalfHour);
-
       day.workingHours.push({
         id: uuidv4(),
         start: nexHalfHour,
@@ -425,27 +412,30 @@ const WeekWorkingHours = () => {
     setWeekWorkingHours(updatedWeekWorkingHours);
   };
   return (
-    <div className="flex flex-col gap-4">
-      {weekWorkingHours.map((day) => (
-        <DayWorkingHours
-          key={day.name}
-          day={day}
-          weekWorkingHours={weekWorkingHours}
-          onDeleteWorkingHours={deleteWorkingHours}
-          onAddWorkingHours={addWorkingHours}
-          onUpdateOpeningHour={updateOpeningHour}
-          onUpdateClosingHour={updateClosingHour}
-        />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col gap-4">
+        {weekWorkingHours.map((day) => (
+          <DayWorkingHours
+            key={day.name}
+            day={day}
+            onDeleteWorkingHours={deleteWorkingHours}
+            onAddWorkingHours={addWorkingHours}
+            onUpdateOpeningHour={updateOpeningHour}
+            onUpdateClosingHour={updateClosingHour}
+          />
+        ))}
+      </div>
+      <Button className="block ms-auto mt-4" size={"lg"} onClick={handleSubmit}>
+        Save
+      </Button>
+    </>
   );
 };
 
 export default WeekWorkingHours;
-
 ```
 
-6) Render the `week-working-hours.tsx` component inside your page 🎉
+6. Render the `week-working-hours.tsx` component inside your page 🎉
 
 ```tsx
 import WeekWorkingHours from "@/components/week-working-hours";
@@ -462,5 +452,4 @@ export default function Home() {
     </main>
   );
 }
-
 ```
